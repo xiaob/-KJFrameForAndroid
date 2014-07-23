@@ -1,7 +1,7 @@
 KJFrameForAndroid
 =================
 
-*注：本项目原地址为[https://github.com/kymjs/KJFrameForAndroid](https://github.com/kymjs/KJFrameForAndroid)此处只作为无法访问github时使用的备用地址，请访问github页面*
+*注：本项目已迁至github，请移步[https://github.com/kymjs/KJFrameForAndroid](https://github.com/kymjs/KJFrameForAndroid)*
 
 # KJFrameForAndroid 交流平台
 * QQ群：[257053751(开发者群1)](http://shang.qq.com/wpa/qunwpa?idkey=00d92c040e81d87ccd21f8d0fffb10640baaa66da45254c3bd329b6ff7d46fef)
