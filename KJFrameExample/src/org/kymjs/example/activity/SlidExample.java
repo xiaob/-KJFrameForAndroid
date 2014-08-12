@@ -41,8 +41,8 @@ public class SlidExample extends SlidTemplet {
 
     @Override
     protected void initSlidMenu() {
-        item1 = new ResideMenuItem(this, R.drawable.ic_launcher, "第一项");
-        item2 = new ResideMenuItem(this, R.drawable.ic_launcher, "第二项");
+        item1 = new ResideMenuItem(this, R.drawable.ic_launcher, "加载网络图");
+        item2 = new ResideMenuItem(this, R.drawable.ic_launcher, "模糊图片");
         item3 = new ResideMenuItem(this, R.drawable.ic_launcher, "图片缩放");
         item4 = new ResideMenuItem(this, R.drawable.ic_launcher, "多图选择");
         item5 = new ResideMenuItem(this, R.drawable.ic_launcher, "立即退出");
@@ -63,32 +63,32 @@ public class SlidExample extends SlidTemplet {
         super.initWidget();
         actionBar.setTitle("侧滑效果演示");
         fragContent = new BitmapDisplay();
-        changeFragment(fragContent);
+        changeFragment(false, fragContent);
     }
 
     /**
      * 必须调用super()，否则界面触摸将被屏蔽
      */
     @Override
-    protected void changeFragment(BaseFragment targetFragment) {
-        super.changeFragment(targetFragment);
-        changeFragment(R.id.content, targetFragment);
+    public void changeFragment(boolean addStack, BaseFragment targetFragment) {
+        super.changeFragment(addStack, targetFragment);
+        changeFragment(R.id.content, addStack, targetFragment);
     }
 
     @Override
     public void onSlidMenuClick(View v) {
         if (v == item1) {
             actionBar.setTitle("网络图片加载");
-            changeFragment(new BitmapDisplay());
+            changeFragment(false, new BitmapDisplay());
         } else if (v == item2) {
             actionBar.setTitle("图片模糊效果");
-            changeFragment(new BitmapMistyExample());
+            changeFragment(false, new BitmapMistyExample());
         } else if (v == item3) {
             actionBar.setTitle("图片缩放效果");
-            changeFragment(new ScaleImageExample());
+            changeFragment(false, new ScaleImageExample());
         } else if (v == item4) {
             actionBar.setTitle("多图选择效果");
-            changeFragment(new ChoiceImageExample());
+            changeFragment(false, new ChoiceImageExample());
         } else if (v == item5) {
             KJActivityManager.create().AppExit(SlidExample.this);
         }

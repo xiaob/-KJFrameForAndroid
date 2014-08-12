@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -34,14 +35,35 @@ public class ScaleImageExample extends BaseFragment {
     @Override
     protected void initWidget(View parentView) {
         super.initWidget(parentView);
-        ScaleImageView imageView = new ScaleImageView(getActivity());
+        final ScaleImageView imageView = new ScaleImageView(getActivity());
+        imageView.setBackgroundColor(0xff000000);
         imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
                 R.drawable.bg));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(params);
-        button.setText("图片缩放旋转控件展示");
+        button.setText("点击或侧滑返回");
+        final Button rotate = new Button(getActivity());
+        rotate.setText("可以旋转" + imageView.canRotate());
+        rotate.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setCanRotate(!imageView.canRotate());
+                rotate.setText("可以旋转" + imageView.canRotate());
+            }
+        });
+        final Button doubleClick = new Button(getActivity());
+        doubleClick.setText("双击或拉伸缩放" + imageView.canDoubleClick());
+        doubleClick.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setCanDoubleClick(!imageView.canDoubleClick());
+                doubleClick.setText("双击或拉伸缩放" + imageView.canDoubleClick());
+            }
+        });
+        layout.addView(rotate);
+        layout.addView(doubleClick);
         layout.addView(imageView);
     }
 

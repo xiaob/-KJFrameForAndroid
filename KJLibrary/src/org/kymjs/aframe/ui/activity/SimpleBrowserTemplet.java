@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, kymjs 张涛 (kymjs123@gmail.com).
+ * Copyright (c) 2014, KJFrameForAndroid 张涛 (kymjs123@gmail.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import android.webkit.WebViewClient;
 /**
  * 简单浏览器模板
  * 
- * @explain1 开发者必须首先实现initWebVie(WebView mWebView)方法，将webview返回
- * @explain2 若要显示网页，可手动调用mWebView.loadUrl(url);
+ * @explain 开发者必须首先实现initWebVie(WebView mWebView)方法，将webview返回
+ * @explain 若要显示网页，可手动调用mWebView.loadUrl(url);
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.0
  * @created 2014-6-23
@@ -33,6 +33,7 @@ import android.webkit.WebViewClient;
 @SuppressLint("SetJavaScriptEnabled")
 public abstract class SimpleBrowserTemplet extends BaseActivity {
 
+    /** 浏览器的webview，你可以在子类中使用 */
     protected WebView mWebView;
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2015, kymjs 张涛 (kymjs123@gmail.com).
+ * Copyright (c) 2014, KJFrameForAndroid 张涛 (kymjs123@gmail.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import android.content.Context;
  * @version 1.1
  * @created 2014-2-28
  */
-public class KJActivityManager {
+final public class KJActivityManager {
     private static Stack<I_KJActivity> activityStack;
 
     private KJActivityManager() {}
@@ -44,6 +44,9 @@ public class KJActivityManager {
         return ManagerHolder.instance;
     }
 
+    /**
+     * 获取当前Activity栈中元素个数
+     */
     public int getCount() {
         return activityStack.size();
     }

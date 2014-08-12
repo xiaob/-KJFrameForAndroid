@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2014, KJFrameForAndroid 张涛 (kymjs123@gmail.com).
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.kymjs.aframe.http;
 
 /**
@@ -12,20 +27,20 @@ public class HttpConfig {
     private static final int SOCKET_TIMEOUT = 8 * 1000; // 8秒
     private static final int READ_TIMEOUT = 8 * 1000; // 8秒
     private static final String CHAR_SET = "UTF8";
-    private static final String REQUEST_METHOD = "GET";
     private static final boolean DO_OUT_PUT = true;
-    private static final String TYPE = "application/octet-stream";
+    private static int MAX_CONNECTION = 10;
+    private static final String TYPE = "application/x-www-form-urlencoded";
 
     private int socketBuffer; // socket缓冲区大小
     private int connectTimeOut; // 连接主机超时时间
     private int readTimeout; // 从主机读取数据超时时间
     private String charSet; // 字符编码格式
-    private String requestMethod; // 请求方式GET、POST、HEAD、OPTIONS、PUT、DELETE、TRACE
     private boolean doOutput; // 是否输出
     private boolean doInput; // 是否输入
     private boolean followRedirects; // 是否自动执行HTTP重定向
     private boolean useCache;
     private String contentType;
+    private int maxConnections; // http请求最大并发连接数
 
     public HttpConfig() {
         socketBuffer = DEFAULT_SOCKET_BUFFER_SIZE;
@@ -33,15 +48,21 @@ public class HttpConfig {
         readTimeout = READ_TIMEOUT;
         charSet = CHAR_SET;
         doOutput = DO_OUT_PUT;
-        requestMethod = REQUEST_METHOD;
         useCache = false;
         contentType = TYPE;
+        maxConnections = MAX_CONNECTION;
     }
 
+    /**
+     * 是否启用Cache
+     */
     public boolean isUseCache() {
         return useCache;
     }
 
+    /**
+     * 是否启用Cache
+     */
     public void setUseCache(boolean useCache) {
         this.useCache = useCache;
     }
@@ -54,44 +75,60 @@ public class HttpConfig {
         this.contentType = contentType;
     }
 
+    /**
+     * socket缓冲
+     */
     public int getSocketBuffer() {
         return socketBuffer;
     }
 
+    /**
+     * socket缓冲
+     */
     public void setSocketBuffer(int socketBuffer) {
         this.socketBuffer = socketBuffer;
     }
 
+    /**
+     * 链接响应超时时间
+     */
     public int getConnectTimeOut() {
         return connectTimeOut;
     }
 
+    /**
+     * 链接响应超时时间
+     */
     public void setConnectTimeOut(int connectTimeOut) {
         this.connectTimeOut = connectTimeOut;
     }
 
+    /**
+     * 链接超时时间
+     */
     public int getReadTimeout() {
         return readTimeout;
     }
 
+    /**
+     * 链接超时时间
+     */
     public void setReadTimeout(int readTimeout) {
         this.readTimeout = readTimeout;
     }
 
+    /**
+     * 字符串格式（默认UTF-8）
+     */
     public String getCharSet() {
         return charSet;
     }
 
+    /**
+     * 字符串格式（默认UTF-8）
+     */
     public void setCharSet(String charSet) {
         this.charSet = charSet;
-    }
-
-    public String getRequestMethod() {
-        return requestMethod;
-    }
-
-    public void setRequestMethod(String requestMethod) {
-        this.requestMethod = requestMethod;
     }
 
     public boolean isDoOutput() {
@@ -110,11 +147,32 @@ public class HttpConfig {
         this.doInput = doInput;
     }
 
+    /**
+     * 自动执行HTTP重定向
+     */
     public boolean isFollowRedirects() {
         return followRedirects;
     }
 
+    /**
+     * 自动执行HTTP重定向
+     */
     public void setFollowRedirects(boolean followRedirects) {
         this.followRedirects = followRedirects;
     }
+
+    /**
+     * http请求最大并发连接数
+     */
+    public int getMaxConnections() {
+        return maxConnections;
+    }
+
+    /**
+     * http请求最大并发连接数
+     */
+    public void setMaxConnections(int maxConnections) {
+        this.maxConnections = maxConnections;
+    }
+
 }

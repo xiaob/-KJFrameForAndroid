@@ -1,15 +1,13 @@
 KJFrameForAndroid
 =================
 
-*注：本项目已迁至github，请移步[https://github.com/kymjs/KJFrameForAndroid](https://github.com/kymjs/KJFrameForAndroid)*
-
 # KJFrameForAndroid 交流平台
-* QQ群：[257053751(开发者群1)](http://shang.qq.com/wpa/qunwpa?idkey=00d92c040e81d87ccd21f8d0fffb10640baaa66da45254c3bd329b6ff7d46fef)
+* QQ群：[257053751](http://shang.qq.com/wpa/qunwpa?idkey=00d92c040e81d87ccd21f8d0fffb10640baaa66da45254c3bd329b6ff7d46fef)(开发者群1)
 * 第三方开发分支：[https://github.com/kuangsunny/KJFrameForAndroid](https://github.com/kuangsunny/KJFrameForAndroid)
 * 项目地址：[https://github.com/kymjs/KJFrameForAndroid](https://github.com/kymjs/KJFrameForAndroid)
 * 项目备用地址（可能不是最新代码）：[http://git.oschina.net/kymjs/KJFrameForAndroid](http://git.oschina.net/kymjs/KJFrameForAndroid)
 
-## 简介
+## ![logo](https://github.com/kymjs/KJFrameForAndroid/blob/master/KJFrameExample/logo.jpg) 简介
 **KJFrameForAndroid** 又叫KJLibrary，是一个android的orm 和 ioc 框架。同时封装了android中的Bitmap与Http操作的框架，使其更加简单易用；<br>
 KJFrameForAndroid的设计思想是通过封装Android原生SDK中复杂的复杂操作而达到简化Android应用级开发，最终实现快速而又安全的开发APP。我们提倡用最少的代码，完成最多的操作，用最高的效率，完成最复杂的功能。<br>
 同时，KJFrameForAndroid是免费的、开源的、简易的、遵循Apache Licence 2.0开源协议发布的android应用开发框架，总共分为五大模块：UILibrary，UtilsLibrary，HttpLibrary，BitmapLibrary，DBLibrary。<br>
@@ -88,7 +86,7 @@ public class TabExample extends BaseActivity {
 KJHttp kjh = new KJHttp();
 kjh.urlget("http://my.oschina.net/kymjs/blog", new StringRespond(){
 
-    @Override
+	@Override
 	public void success(String t) {
 			ViewInject.toast("显示JSON信息：" + t);
 	}
@@ -102,11 +100,11 @@ kjh.urlget("http://my.oschina.net/kymjs/blog", new StringRespond(){
 ```
 
 ## BitmapLibrary模块
-任何View(ImageView设置src，普通View设置bg)加载图片的时候都无需考虑图片加载过程中出现的oom和android容器快速滑动时候出现的图片错位等现象，同时无需考虑图片加载过程中出现的OOM。默认使用内存lru算法+磁盘lru算法缓存图片<br>
+任何View(ImageView设置src，普通View设置bg)加载图片的时候都无需考虑图片加载过程中出现的oom和android容器快速滑动时候出现的图片错位等现象，同时无需考虑图片加载过程中出现的OOM。默认使用内存lru算法+磁盘lru算法缓存图片 [详细介绍](http://my.oschina.net/kymjs/blog/295001)<br>
 **注：**在Android2.3之前，我们常常使用软引用或弱引用的形式去做缓存图片，然而根据Google的描述：垃圾回收器会更倾向于回收持有软引用或弱引用的对象，这让软引用和弱引用变得不再可靠。另外，Android 3.0 (API Level 11)中，图片的数据会存储在本地的内存当中，因而无法用一种可预见的方式将其释放，这就有潜在的风险造成应用程序的内存溢出并崩溃。BitmapLibrary使用lru算法去管理缓存，同时内存缓存配合磁盘缓存能更有效的管理缓存调用。
 ```java
 
-KJBitmap kjb = KJBitmap.build();
+KJBitmap kjb = KJBitmap.create();
 /**
  * url不仅支持网络图片显示，同时支持本地SD卡上的图片显示；
  * view不仅可以是imageview，同时普通view也可以传入，框架会自动识别对imageview设置src对普通view设置bg

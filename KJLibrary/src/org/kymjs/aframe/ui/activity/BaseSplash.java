@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, kymjs 张涛 (kymjs123@gmail.com).
+ * Copyright (c) 2014, KJFrameForAndroid 张涛 (kymjs123@gmail.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,18 @@ import android.widget.ImageView.ScaleType;
  * 
  * @author kymjs(kymjs123@gmail.com)
  */
-public class BaseSplash extends BaseActivity {
+public abstract class BaseSplash extends BaseActivity {
 
+    /**
+     * 用于显示启动界面的背景图片
+     */
     protected ImageView mImageView;
 
+    protected abstract void setRootBackground(ImageView view);
+
+    /**
+     * 默认设置为全屏、竖屏锁定显示
+     */
     public BaseSplash() {
         setAllowFullScreen(true);
         setHiddenActionBar(true);
@@ -44,7 +52,7 @@ public class BaseSplash extends BaseActivity {
         mImageView = new ImageView(this);
         mImageView.setScaleType(ScaleType.FIT_XY);
         setContentView(mImageView);
-        // mImageView.setImageResource(R.drawable.bg_start);
+        setRootBackground(mImageView);
     }
 
     @Override

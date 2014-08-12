@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, kymjs 张涛 (kymjs123@gmail.com).
+ * Copyright (c) 2014, KJFrameForAndroid 张涛 (kymjs123@gmail.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,13 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**
+ * 注解工具类
+ * 
+ * @author kymjs(kymjs123@gmail.com)
+ * @version 1.1
+ * @created 2014-6-5
+ */
 public class AnnotateUtil {
     /**
      * @param currentClass

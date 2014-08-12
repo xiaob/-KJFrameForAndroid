@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, kymjs 张涛 (kymjs123@gmail.com).
+ * Copyright (c) 2014, KJFrameForAndroid 张涛 (kymjs123@gmail.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,9 @@ package org.kymjs.aframe.ui.activity;
 import org.kymjs.aframe.ui.AnnotateUtil;
 import org.kymjs.aframe.ui.I_BroadcastReg;
 import org.kymjs.aframe.ui.KJActivityManager;
-import org.kymjs.aframe.ui.ViewInject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -30,18 +28,19 @@ import android.view.View.OnClickListener;
  * update log:
  * @1.5 abstract protocol: I_KJActivity
  * @1.6 add method initThreadData()
+ * @1.7 add abstract protocol:I_SkipActivity
  */
 
 /**
  * Activity's framework,the developer shouldn't extends it
  * 
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.6
+ * @version 1.7
  * @created 2014-3-1
  * @lastChange 2014-5-30
  */
 public abstract class KJFrameActivity extends Activity implements
-        OnClickListener, I_BroadcastReg, I_KJActivity {
+        OnClickListener, I_BroadcastReg, I_KJActivity, I_SkipActivity {
 
     /** initialization widget */
     protected void initWidget() {}
@@ -64,8 +63,8 @@ public abstract class KJFrameActivity extends Activity implements
                 initThreadData();
             }
         }).start();
-        initWidget();
         initData();
+        initWidget();
     }
 
     /** listened widget's click method */
@@ -98,14 +97,5 @@ public abstract class KJFrameActivity extends Activity implements
         super.onDestroy();
         unRegisterBroadcast();
         KJActivityManager.create().finishActivity(this);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && KJActivityManager.create().getCount() < 2) {
-            ViewInject.create().getExitDialog(this);
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

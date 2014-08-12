@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, kymjs 张涛 (kymjs123@gmail.com).
+ * Copyright (c) 2014, KJFrameForAndroid 张涛 (kymjs123@gmail.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,9 +33,10 @@ public class BitmapHelper {
     /**
      * 图片压缩处理（使用Options的方法）
      * 
-     * @使用方法 首先你要将Options的inJustDecodeBounds属性设置为true，BitmapFactory.decode一次图片。
-     *       然后将Options连同期望的宽度和高度一起传递到到本方法中。
-     *       之后再使用本方法的返回值做参数调用BitmapFactory.decode创建图片。
+     * @explain 使用方法：
+     *          首先你要将Options的inJustDecodeBounds属性设置为true，BitmapFactory.decode一次图片
+     *          。 然后将Options连同期望的宽度和高度一起传递到到本方法中。
+     *          之后再使用本方法的返回值做参数调用BitmapFactory.decode创建图片。
      * 
      * @explain BitmapFactory创建bitmap会尝试为已经构建的bitmap分配内存
      *          ，这时就会很容易导致OOM出现。为此每一种创建方法都提供了一个可选的Options参数
@@ -81,7 +82,7 @@ public class BitmapHelper {
         // 将bitmap放至数组中，意在获得bitmap的大小（与实际读取的原文件要大）
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         // 格式、质量、输出流
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
         byte[] b = baos.toByteArray();
         // 将字节换成KB
         double mid = b.length / 1024;
@@ -162,5 +163,21 @@ public class BitmapHelper {
      */
     public static Bitmap scale(Bitmap src, float scale) {
         return scale(src, scale, scale);
+    }
+
+    /**
+     * 旋转图片
+     * 
+     * @param angle
+     *            旋转角度
+     * @param bitmap
+     *            要旋转的图片
+     * @return 旋转后的图片
+     */
+    public static Bitmap rotate(int angle, Bitmap bitmap) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                bitmap.getHeight(), matrix, true);
     }
 }
