@@ -16,11 +16,12 @@
 package org.kymjs.aframe.http;
 
 /**
- * http请求规范接口协议
+ * http请求规范接口协议<br>
+ * 
+ * <b>创建时间</b> 2014-8-7
  * 
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.0
- * @created 2014-8-7
+ * @version 1.2
  */
 public interface I_HttpRespond {
     /**

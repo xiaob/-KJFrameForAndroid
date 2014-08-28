@@ -17,17 +17,20 @@ package org.kymjs.aframe.bitmap.utils;
 
 import java.io.InputStream;
 
+import org.kymjs.aframe.utils.FileUtils;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
 /**
- * 不会发生OOM的 BitmapFactory
+ * 不会发生OOM的 BitmapFactory<br>
+ * 
+ * <b>创建时间</b> 2014-7-11
  * 
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.0
- * @created 2014-7-11
  */
 public class BitmapCreate {
     /**
@@ -68,13 +71,13 @@ public class BitmapCreate {
      * @param reqHeight
      *            目标高度
      */
-    public static Bitmap bitmapFromFile(String pathName, int reqWidth,
-            int reqHeight) {
+    public static Bitmap bitmapFromFile(String pathName,
+            int reqWidth, int reqHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(pathName, options);
-        options = BitmapHelper.calculateInSampleSize(options, reqWidth,
-                reqHeight);
+        options = BitmapHelper.calculateInSampleSize(options,
+                reqWidth, reqHeight);
         return BitmapFactory.decodeFile(pathName, options);
     }
 
@@ -97,9 +100,28 @@ public class BitmapCreate {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeByteArray(data, offset, length, options);
-        options = BitmapHelper.calculateInSampleSize(options, reqWidth,
+        options = BitmapHelper.calculateInSampleSize(options,
+                reqWidth, reqHeight);
+        return BitmapFactory.decodeByteArray(data, offset, length,
+                options);
+    }
+
+    /**
+     * 获取一个指定大小的bitmap<br>
+     * 实际调用的方法是bitmapFromByteArray(data, 0, data.length, w, h);
+     * 
+     * @param is
+     *            从输入流中读取Bitmap
+     * @param reqWidth
+     *            目标宽度
+     * @param reqHeight
+     *            目标高度
+     */
+    public static Bitmap bitmapFromStream(InputStream is,
+            int reqWidth, int reqHeight) {
+        byte[] data = FileUtils.input2byte(is);
+        return bitmapFromByteArray(data, 0, data.length, reqWidth,
                 reqHeight);
-        return BitmapFactory.decodeByteArray(data, offset, length, options);
     }
 
     /**
@@ -116,13 +138,13 @@ public class BitmapCreate {
      * @param reqHeight
      *            目标高度
      */
-    public static Bitmap bitmapFromStream(InputStream is, Rect outPadding,
-            int reqWidth, int reqHeight) {
+    public static Bitmap bitmapFromStream(InputStream is,
+            Rect outPadding, int reqWidth, int reqHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(is, outPadding, options);
-        options = BitmapHelper.calculateInSampleSize(options, reqWidth,
-                reqHeight);
+        options = BitmapHelper.calculateInSampleSize(options,
+                reqWidth, reqHeight);
         return BitmapFactory.decodeStream(is, outPadding, options);
     }
 }

@@ -22,8 +22,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.kymjs.aframe.KJConfig;
-import org.kymjs.aframe.KJException;
 import org.kymjs.aframe.KJLoger;
+import org.kymjs.aframe.core.KJException;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -43,7 +43,15 @@ import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.view.inputmethod.InputMethodManager;
 
-public class SystemTool {
+/**
+ * 系统信息工具包<br>
+ * 
+ * <b>创建时间</b> 2014-8-14
+ * 
+ * @author kymjs(kymjs123@gmail.com)
+ * @version 1.1
+ */
+public final class SystemTool {
     /**
      * 指定格式返回当前系统时间
      */
@@ -134,7 +142,8 @@ public class SystemTool {
     /**
      * 隐藏系统键盘
      * 
-     * @warn 必须是确定键盘显示时才能调用
+     * <br>
+     * <b>警告</b> 必须是确定键盘显示时才能调用
      */
     public static void hideKeyBoard(Activity aty) {
         ((InputMethodManager) aty

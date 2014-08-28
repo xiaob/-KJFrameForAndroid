@@ -18,31 +18,14 @@ package org.kymjs.aframe.http;
 import java.io.File;
 
 /**
- * 用于处理传递File的http请求回调类（例如文件下载）
+ * 用于处理传递File的http请求回调类（例如文件下载）<br>
+ * 
+ * <b>创建时间</b> 2014-8-8
  * 
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.0
- * @created 2014-8-8
+ * @version 1.1
  */
-public abstract class FileCallBack implements I_HttpRespond {
-    private boolean progress = false;
-
-    /**
-     * 是否开启上传进度显示
-     */
-    @Override
-    public boolean isProgress() {
-        return progress;
-    }
-
-    /**
-     * 是否开启上传进度显示
-     */
-    @Override
-    public void setProgress(boolean open) {
-        progress = open;
-    }
-
+public abstract class FileCallBack extends HttpCallBack {
     /**
      * 上传进度回调，必须调用了setProgress(true)，该方法才会回调
      */
@@ -57,7 +40,7 @@ public abstract class FileCallBack implements I_HttpRespond {
     /**
      * 网络请求成功后回调
      */
-    abstract public void onSuccess(File json);
+    abstract public void onSuccess(File file);
 
     /**
      * 网络请求异常后回调

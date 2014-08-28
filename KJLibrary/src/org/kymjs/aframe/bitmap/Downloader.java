@@ -23,19 +23,21 @@ import java.net.URL;
 
 import org.kymjs.aframe.KJLoger;
 import org.kymjs.aframe.bitmap.utils.BitmapCreate;
+import org.kymjs.aframe.utils.CipherUtils;
 import org.kymjs.aframe.utils.FileUtils;
 import org.kymjs.aframe.utils.StringUtils;
 
 import android.graphics.Bitmap;
 
 /**
- * 图片下载器：可以从网络或本地加载一张Bitmap并返回
+ * 图片下载器：可以从网络或本地加载一张Bitmap并返回，你应该使用性能更优的替代类 {@see #DownloadWithLruCache}<br>
+ * <b>说明</b> 采用模板方法模式设计的下载器， 同时本类也是一个具体模板类，实现具体的模板方法<br>
+ * <b>创建时间</b> 2014-7-11
  * 
- * @explain 采用工厂方法模式设计的下载器，同时本类也是一个具体工厂类，生产具体的产品byte[]
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.0
- * @created 2014-7-11
+ * @version 1.0 <br>
  */
+@Deprecated
 public class Downloader implements I_ImageLoder {
     private KJBitmapConfig config;
 
@@ -56,17 +58,15 @@ public class Downloader implements I_ImageLoder {
             img = loadImgFromFile(imagePath);
         } else { // 网络图片：首先从本地缓存读取，如果本地没有，则重新从网络加载
             File file = FileUtils.getSaveFile(config.cachePath,
-                    StringUtils.md5(imagePath));
+                    CipherUtils.md5(imagePath));
             if (file == null) { // 本地没有缓存
                 img = loadImgFromNet(imagePath);
             } else {
                 try {
-                    img = FileUtils.input2byte(new FileInputStream(file));
-                    if (config.isDEBUG) {
-                        KJLoger.debugLog(getClass().getName(),
-                                "download success, from be disk cache\n"
-                                        + imagePath);
-                    }
+                    img = FileUtils.input2byte(new FileInputStream(
+                            file));
+                    showLogIfOpen("download success, from be disk cache\n"
+                            + imagePath);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -82,7 +82,7 @@ public class Downloader implements I_ImageLoder {
      * @param imagePath
      *            图片的地址
      */
-    private byte[] loadImgFromNet(String imagePath) {
+    private byte[] loadImgFromNet(final String imagePath) {
         byte[] data = null;
         HttpURLConnection con = null;
         try {
@@ -98,16 +98,12 @@ public class Downloader implements I_ImageLoder {
             if (config.openDiskCache) {
                 FileUtils.saveFileCache(data,
                         FileUtils.getSavePath(config.cachePath),
-                        StringUtils.md5(imagePath));
+                        CipherUtils.md5(imagePath));
             }
-            if (config.isDEBUG) {
-                KJLoger.debugLog(getClass().getName(),
-                        "download success, from be net\n" + imagePath);
-            }
+            showLogIfOpen("download success, from be net\n"
+                    + imagePath);
         } catch (Exception e) {
-            if (config.callBack != null) {
-                config.callBack.imgLoadFailure(imagePath, e.getMessage());
-            }
+            doFailureCallBack(imagePath, e);
             e.printStackTrace();
         } finally {
             if (con != null) {
@@ -131,15 +127,11 @@ public class Downloader implements I_ImageLoder {
             if (fis != null) {
                 // 本地图片就不加入本地缓存了
                 data = FileUtils.input2byte(fis);
-                if (config.isDEBUG) {
-                    KJLoger.debugLog(getClass().getName(),
-                            "download success, from be disk file\n" + imagePath);
-                }
+                showLogIfOpen("download success, from be disk file\n"
+                        + imagePath);
             }
         } catch (FileNotFoundException e) {
-            if (config.callBack != null) {
-                config.callBack.imgLoadFailure(imagePath, e.getMessage());
-            }
+            doFailureCallBack(imagePath, e);
             e.printStackTrace();
         } finally {
             FileUtils.closeIO(fis);
@@ -155,11 +147,38 @@ public class Downloader implements I_ImageLoder {
     @Override
     public Bitmap getBitmapFromDisk(String key) {
         File file = FileUtils.getSaveFile(config.cachePath,
-                StringUtils.md5(key));
-        if (file != null)
-            return BitmapCreate.bitmapFromFile(file.getAbsolutePath(),
-                    config.width, config.height);
-        else
+                CipherUtils.md5(key));
+        if (file != null) {
+            return BitmapCreate.bitmapFromFile(
+                    file.getAbsolutePath(), config.width,
+                    config.height);
+        } else {
             return null;
+        }
+    }
+
+    /**
+     * 如果设置了回调，调用加载失败回调
+     * 
+     * @param imagePath
+     *            加载失败的图片路径
+     * @param e
+     *            失败原因
+     */
+    private void doFailureCallBack(String imagePath, Exception e) {
+        if (config.callBack != null) {
+            config.callBack.imgLoadFailure(imagePath, e.getMessage());
+        }
+    }
+
+    /**
+     * 如果打开了log显示器，则显示log
+     * 
+     * @param imageUrl
+     */
+    private void showLogIfOpen(String log) {
+        if (config.isDEBUG) {
+            KJLoger.debugLog(getClass().getName(), log);
+        }
     }
 }

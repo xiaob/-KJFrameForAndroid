@@ -16,28 +16,14 @@
 package org.kymjs.aframe.http;
 
 /**
- * 用于处理JSON的http请求回调类
+ * 用于处理JSON的http请求回调类<br>
+ * 
+ * <b>创建时间</b> 2014-8-5
  * 
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.0
- * @created 2014-8-5
+ * @version 1.1
  */
-public abstract class StringCallBack implements I_HttpRespond {
-    private boolean progress = false;
-
-    /**
-     * 是否开启上传进度显示
-     */
-    public boolean isProgress() {
-        return progress;
-    }
-
-    /**
-     * 是否开启上传进度显示
-     */
-    public void setProgress(boolean open) {
-        progress = open;
-    }
+public abstract class StringCallBack extends HttpCallBack {
 
     /**
      * 网络请求成功后回调

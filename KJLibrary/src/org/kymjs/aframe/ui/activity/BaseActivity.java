@@ -29,18 +29,19 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Application BaseActivity,you should inherit it for your Activity
+ * Application BaseActivity,you should inherit it for your Activity<br>
+ * 
+ * <b>创建时间</b> 2014-5-28
  * 
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.2
- * @created 2014-5-28
  */
 public abstract class BaseActivity extends KJFrameActivity {
     /**
      * 当前Activity状态
      */
     public static enum ActivityState {
-        RESUME, STOP, PAUSE, DESTORY
+        RESUME, STOP, PAUSE, DESTROY
     }
 
     /**
@@ -52,7 +53,7 @@ public abstract class BaseActivity extends KJFrameActivity {
 
     public Activity aty;
     /** Activity状态 */
-    public ActivityState activityState = ActivityState.DESTORY;
+    public ActivityState activityState = ActivityState.DESTROY;
     // 是否允许全屏
     private boolean mAllowFullScreen = false;
     // 是否隐藏ActionBar
@@ -192,7 +193,8 @@ public abstract class BaseActivity extends KJFrameActivity {
             a.show();
         }
         if (mAllowFullScreen) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         super.onCreate(savedInstanceState);
@@ -228,14 +230,16 @@ public abstract class BaseActivity extends KJFrameActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        KJLoger.state(this.getClass().getName(), "---------onRestart ");
+        KJLoger.state(this.getClass().getName(),
+                "---------onRestart ");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        activityState = ActivityState.DESTORY;
-        KJLoger.state(this.getClass().getName(), "---------onDestroy ");
+        activityState = ActivityState.DESTROY;
+        KJLoger.state(this.getClass().getName(),
+                "---------onDestroy ");
     }
 
     @Override

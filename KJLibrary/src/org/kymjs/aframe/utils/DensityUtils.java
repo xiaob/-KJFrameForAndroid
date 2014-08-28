@@ -19,7 +19,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-public class DensityUtils {
+/**
+ * 系统屏幕的一些操作<br>
+ * 
+ * <b>创建时间</b> 2014-8-14
+ * 
+ * @author kymjs(kymjs123@gmail.com)
+ * @version 1.1
+ */
+public final class DensityUtils {
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)

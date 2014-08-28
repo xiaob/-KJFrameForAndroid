@@ -20,6 +20,14 @@ import org.kymjs.aframe.KJConfig;
 import android.content.Context;
 import android.content.Intent;
 
+/**
+ * 系统硬件错误处理<br>
+ * 
+ * <b>创建时间</b> 2014-8-14
+ * 
+ * @author kymjs(kymjs123@gmail.com)
+ * @version 1.1
+ */
 public class ErrHandleUtils {
     /**
      * 用于显示错误信息

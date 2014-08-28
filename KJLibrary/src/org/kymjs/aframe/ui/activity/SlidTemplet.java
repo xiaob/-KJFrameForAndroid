@@ -23,9 +23,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * 具有侧滑缩放效果侧滑界面模板
+ * 具有侧滑缩放效果侧滑界面模板<br>
  * 
- * @warn 在changeFragment()中必须调用super.changeFragment(targetFragment);
+ * <b>警告</b> 在changeFragment()中必须调用super.changeFragment(targetFragment);
+ * 
  * @author kymjs(kymjs123@gmail.com)
  */
 public abstract class SlidTemplet extends KJFragmentActivity implements
@@ -65,7 +66,7 @@ public abstract class SlidTemplet extends KJFragmentActivity implements
     }
 
     @Override
-    public void changeFragment(boolean addStack, BaseFragment targetFragment) {
+    public void changeFragment(BaseFragment targetFragment) {
         // 清空不拦截触摸事件的控件（界面已经被替换）
         resideMenu.clearIgnoredViewList();
     }

@@ -32,12 +32,13 @@ import android.view.View.OnClickListener;
  */
 
 /**
- * Activity's framework,the developer shouldn't extends it
+ * Activity's framework,the developer shouldn't extends it<br>
+ * 
+ * <b>创建时间</b> 2014-3-1 <br>
+ * <b>最后修改时间</b> 2014-5-30<br>
  * 
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.7
- * @created 2014-3-1
- * @lastChange 2014-5-30
  */
 public abstract class KJFrameActivity extends Activity implements
         OnClickListener, I_BroadcastReg, I_KJActivity, I_SkipActivity {
@@ -49,7 +50,7 @@ public abstract class KJFrameActivity extends Activity implements
      * initialization data. And this method run in background thread, so you
      * shouldn't change ui
      */
-    protected void initThreadData() {}
+    protected void initDataWithThread() {}
 
     /** initialization data */
     protected void initData() {}
@@ -60,7 +61,7 @@ public abstract class KJFrameActivity extends Activity implements
         new Thread(new Runnable() {
             @Override
             public void run() {
-                initThreadData();
+                initDataWithThread();
             }
         }).start();
         initData();

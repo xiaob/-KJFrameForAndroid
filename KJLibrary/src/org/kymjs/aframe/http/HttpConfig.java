@@ -15,14 +15,21 @@
  */
 package org.kymjs.aframe.http;
 
+import org.kymjs.aframe.http.downloader.I_FileLoader;
+
 /**
- * HttpClient请求的配置类
+ * HttpClient请求的配置类<br>
+ * 
+ * <b>创建时间</b> 2014-6-5
  * 
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.1
- * @created 2014-6-5
  */
 public class HttpConfig {
+    public static final String FileParamsName = "KJFrameForAndroid_File";
+    public static final String FileParamsKey = "KJLibrary";
+
+    private static final int THREAD_COUNT = 6;
     private static final int DEFAULT_SOCKET_BUFFER_SIZE = 8 * 1024; // 8KB
     private static final int SOCKET_TIMEOUT = 8 * 1000; // 8秒
     private static final int READ_TIMEOUT = 8 * 1000; // 8秒
@@ -41,6 +48,8 @@ public class HttpConfig {
     private boolean useCache;
     private String contentType;
     private int maxConnections; // http请求最大并发连接数
+    private int downThreadCount;
+    private I_FileLoader downloader; // 文件下载器
 
     public HttpConfig() {
         socketBuffer = DEFAULT_SOCKET_BUFFER_SIZE;
@@ -51,6 +60,7 @@ public class HttpConfig {
         useCache = false;
         contentType = TYPE;
         maxConnections = MAX_CONNECTION;
+        downThreadCount = THREAD_COUNT;
     }
 
     /**
@@ -173,6 +183,36 @@ public class HttpConfig {
      */
     public void setMaxConnections(int maxConnections) {
         this.maxConnections = maxConnections;
+    }
+
+    /**
+     * 多线程下载的线程数
+     */
+    public int getDownThreadCount() {
+        return downThreadCount;
+    }
+
+    /**
+     * 多线程下载的线程数
+     */
+    public void setDownThreadCount(int downThreadCount) {
+        this.downThreadCount = downThreadCount;
+    }
+
+    /**
+     * 文件下载器，默认采用系统自带下载器，你也可以使用自己的下载器
+     */
+    public I_FileLoader getDownloader() {
+        return downloader;
+    }
+
+    /**
+     * 设置文件下载器，默认采用系统自带下载器，你也可以使用自己的下载器
+     * 
+     * @param downloader
+     */
+    public void setDownloader(I_FileLoader downloader) {
+        this.downloader = downloader;
     }
 
 }

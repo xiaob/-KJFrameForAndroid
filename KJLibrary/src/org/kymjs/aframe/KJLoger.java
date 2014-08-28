@@ -18,16 +18,25 @@ package org.kymjs.aframe;
 import android.util.Log;
 
 /**
- * 应用程序的Log管理
+ * 应用程序的Log管理<br>
+ * <b>创建时间</b> 2014-2-28
  * 
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.1
- * @created 2014-2-28
  */
-public class KJLoger {
-    public static final boolean IS_DEBUG = true;
-    public static final boolean DEBUG_LOG = true;
-    public static final boolean SHOW_ACTIVITY_STATE = true;
+public final class KJLoger {
+    public static boolean IS_DEBUG = true;
+    public static boolean DEBUG_LOG = true;
+    public static boolean SHOW_ACTIVITY_STATE = true;
+
+    public static final void openDebutLog(boolean enable) {
+        IS_DEBUG = enable;
+        DEBUG_LOG = enable;
+    }
+
+    public static final void openActivityState(boolean enable) {
+        SHOW_ACTIVITY_STATE = enable;
+    }
 
     public static final void debug(String msg) {
         if (IS_DEBUG) {

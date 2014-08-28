@@ -17,7 +17,7 @@ package org.kymjs.aframe.ui;
 
 import java.lang.reflect.Field;
 
-import org.kymjs.aframe.KJException;
+import org.kymjs.aframe.core.KJException;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -26,11 +26,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 /**
- * 注解工具类
+ * 注解工具类<br>
+ * 
+ * <b>创建时间</b> 2014-6-5
  * 
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.1
- * @created 2014-6-5
  */
 public class AnnotateUtil {
     /**

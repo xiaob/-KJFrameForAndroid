@@ -15,12 +15,19 @@
  */
 package org.kymjs.aframe.http;
 
+import org.apache.http.HttpEntity;
+
 /**
- * httpLibrary中请求参数的规范接口协议
+ * httpLibrary中请求参数的规范接口协议<br>
+ * 
+ * <b>创建时间</b> 2014-8-7
  * 
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.0
- * @created 2014-8-7
+ * @version 1.1
  */
 public interface I_HttpParams {
+    /**
+     * 获取参数集
+     */
+    HttpEntity getEntity();
 }

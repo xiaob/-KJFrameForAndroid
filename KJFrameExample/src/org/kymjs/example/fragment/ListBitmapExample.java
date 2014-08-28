@@ -3,7 +3,6 @@ package org.kymjs.example.fragment;
 import org.kymjs.aframe.bitmap.KJBitmap;
 import org.kymjs.aframe.bitmap.utils.BitmapCreate;
 import org.kymjs.aframe.ui.BindView;
-import org.kymjs.aframe.ui.ViewInject;
 import org.kymjs.aframe.ui.fragment.BaseFragment;
 import org.kymjs.aframe.ui.widget.KJListView;
 import org.kymjs.aframe.ui.widget.KJListView.KJListViewListener;
@@ -24,7 +23,6 @@ public class ListBitmapExample extends BaseFragment {
 
     private Activity aty;
     private KJBitmap kjb;
-
     private int count = 20;
 
     @Override
@@ -43,33 +41,39 @@ public class ListBitmapExample extends BaseFragment {
     @Override
     protected void initWidget(View parentView) {
         super.initWidget(parentView);
-        listview.setAdapter(new ListviewAdapter());
-        listview.setPullLoadEnable(true); // 上拉刷新默认关闭，下拉刷新默认开启
+        final ListviewAdapter adapter = new ListviewAdapter();
+        listview.setAdapter(adapter);
+        // 上拉刷新需要手动开启，下拉刷新默认开启
+        listview.setPullLoadEnable(true);
         listview.setKJListViewListener(new KJListViewListener() {
             @Override
-            public void onRefresh() {
-                ViewInject.toast("刷新成功");
+            public void onRefresh() { // 下拉刷新完成
                 count += 5;
-                listview.setAdapter(new ListviewAdapter());
                 listview.stopRefreshData();
+                adapter.refresh();
             }
 
             @Override
-            public void onLoadMore() {
-                ViewInject.toast("刷新成功");
+            public void onLoadMore() { // 上拉刷新完成
                 count += 5;
-                listview.setAdapter(new ListviewAdapter());
                 listview.stopRefreshData();
+                adapter.refresh();
             }
         });
     }
 
     private class ListviewAdapter extends BaseAdapter {
+
         private ImageView image;
 
         @Override
         public int getCount() {
             return count;
+        }
+
+        public void refresh() {
+            // notifyDataSetChanged();
+            notifyDataSetInvalidated();
         }
 
         @Override

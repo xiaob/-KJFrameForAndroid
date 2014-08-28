@@ -25,12 +25,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 /**
- * Fragment's framework,the developer shouldn't extends it
+ * Fragment's framework,the developer shouldn't extends it<br>
+ * 
+ * <b>创建时间</b> 2014-3-1 <br>
+ * <b>最后修改时间</b> 2014-5-30<br>
  * 
  * @author kymjs(kymjs123@gmail.com)
  * @version 1.5
- * @created 2014-3-1
- * @lastChange 2014-5-30
  */
 public abstract class KJFrameFragment extends Fragment implements
         OnClickListener {
