@@ -1,16 +1,18 @@
 ﻿## ![logo](https://github.com/kymjs/KJFrameForAndroid/blob/master/KJFrameExample/logo.jpg) KJFrameForAndroid简介
 =================
+感谢支持KJFrameForAndroid的社区与组织：<br>
 [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-KJFrameForAndroid-blue.svg?style=flat)](http://android-arsenal.com/details/1/836)
 [![Travis CI](https://travis-ci.org/kymjs/KJFrameForAndroid.svg?)](https://travis-ci.org/kymjs/KJFrameForAndroid)
 [![BlackDuck OpenHUB](https://www.openhub.net/p/KJFrameForAndroid/widgets/project_thin_badge.gif)](https://www.openhub.net/p/KJFrameForAndroid)
-<br>**KJFrameForAndroid** 又叫KJLibrary，是一个android的orm 和 ioc 框架。同时封装了android中的Bitmap与Http操作的框架，使其更加简单易用；<br>
-KJFrameForAndroid的设计思想是通过封装Android原生SDK中复杂的复杂操作而达到简化Android应用级开发，最终实现快速而又安全的开发APP。我们提倡用最少的代码，完成最多的操作，用最高的效率，完成最复杂的功能。<br>
-同时，KJFrameForAndroid是免费的、开源的、简易的、遵循Apache Licence 2.0开源协议发布的android应用开发框架，总共分为五大模块：UILibrary，UtilsLibrary，HttpLibrary，BitmapLibrary，DBLibrary。<br>
+[![OSChina](https://www.oschina.net/img/logo_s2.gif)](https://www.oschina.net/)
+<br>--- **KJFrameForAndroid** 又叫KJLibrary，是一个android的orm 和 ioc 框架。同时封装了android中的Bitmap与Http操作的框架，使其更加简单易用；<br>
+--- KJFrameForAndroid的设计思想是通过封装Android原生SDK中复杂的复杂操作而达到简化Android应用级开发，最终实现快速而又安全的开发APP。我们提倡用最少的代码，完成最多的操作，用最高的效率，完成最复杂的功能。<br>
 
-## KJFrameForAndroid 交流平台
+## KJFrameForAndroid 相关链接
 * QQ群：[257053751](http://shang.qq.com/wpa/qunwpa?idkey=00d92c040e81d87ccd21f8d0fffb10640baaa66da45254c3bd329b6ff7d46fef)(开发者群1)
 * 项目地址：[https://github.com/kymjs/KJFrameForAndroid](https://github.com/kymjs/KJFrameForAndroid)
 * 项目备用地址（可能不是最新代码）：[http://git.oschina.net/kymjs/KJFrameForAndroid](http://git.oschina.net/kymjs/KJFrameForAndroid)
+* 
 * ask question to [https://github.com/kymjs/KJFrameForAndroid/issues](https://github.com/kymjs/KJFrameForAndroid/issues)
 * wiki for English skip to [https://github.com/kymjs/KJFrameForAndroid/wiki](https://github.com/kymjs/KJFrameForAndroid/wiki)
 * 版本日志debug log [https://github.com/kymjs/KJFrameForAndroid/blob/master/debug_log.txt](https://github.com/kymjs/KJFrameForAndroid/blob/master/debug_log.txt)
@@ -20,7 +22,7 @@ KJFrameForAndroid的设计思想是通过封装Android原生SDK中复杂的复�
 clone下KJFrameForAndroid最新源码后，导入eclipse中，若只想使用框架而不考虑源码查看与学习，可直接复制binrary目录下的kjlibrary.jar文件至自己项目的libs文件夹中。<br>
 gradle？为什么要用AndroidStudio（或类似）我们不对其做支持，当然你可以选择自行研究。<br>
 若需要对源码改动或学习，可打开KJLibrary工程查看源码，同时结合KJFrameExample演示项目更好的学习，另外也可以自己新建工程，并右键工程->preference->Android->library->Add,选择KJLibrary工程加入后apply应用。<br>
-由于使用了最新的部分API函数，以及3.0版Fragment。KJFrameForAndroid框架最低支持3.0版本（API 11），本框架支持代码混淆<br>
+由于使用了最新的部分API函数，以及3.0版Fragment。KJFrameForAndroid框架最低支持Android3.0版本，本框架可以作代码混淆<br>
 
 *注：使用 KJFrameForAndroid 应用开发框架需要在你项目的AndroidManifest.xml文件中加入以下权限：*
 ```xml
@@ -37,8 +39,7 @@ gradle？为什么要用AndroidStudio（或类似）我们不对其做支持，�
 ## =======各模块使用介绍=======
 
 ## UILibrary模块
-
-UILibrary包含两个部分Widget、Topology  [详细介绍...](http://my.oschina.net/kymjs/blog/284897)<br>
+UILibrary包含两个部分Widget(控件)、Topology(Android框架结构继承链)  [详细介绍...](http://my.oschina.net/kymjs/blog/284897)<br>
 
 **UILibrary -> Widget控件部分**
 主要封装了常用的UI控件，为了不让项目jar包过大，我们只引入了开发中一定会用到的控件，例如：可上下拉的KJListView、可上下拉的KJScrollView、可以双指缩放双击缩放双指旋转的ScaleImageView、等等......更多内容请自行查看项目文件中org.kymjs.aframe.widget包下的内容<br>
@@ -106,7 +107,8 @@ kjb.display(textView, "http://www.eoeandroid.com/data/attachment/forum/201107/18
 ```
 
 ## HttpLibrary模块
-使用HttpClient与HttpUrlConnection两种实现方式实现网络通信、数据上传、多线程断点下载。根据Google建议：在2.3系统之前由于HttpUrlConnection不稳定且有一定的BUG，应该尽量使用HttpClient；在2.3以后的系统，若只是简单的数据交互，应该使用更加轻量级、易扩展的HttpUrlConnection。对于实现的方式，KJLibrary将交由开发者来选择。<br>
+KJLibrary默认对所有Http通信的数据做了缓存处理，缓存时间为5分钟。这么做的目的不仅是为了节省用户手机流量，同时是为了减少服务器压力<br>
+HttpLibrary模块使用HttpClient与HttpUrlConnection两种实现方式实现网络通信、数据上传、多线程断点下载。根据Google建议：在2.3系统之前由于HttpUrlConnection不稳定且有一定的BUG，应该尽量使用HttpClient；在2.3以后的系统，若只是简单的数据交互，应该使用更加轻量级、易扩展的HttpUrlConnection。对于实现的方式，KJLibrary将交由开发者来选择。<br>
 
 ###普通get方法示例：
 ```java
@@ -211,7 +213,7 @@ kjh.urlDownload(mEt.getText().toString(), "/storage/sdcard0/3.png",file);
 ```
 ## DBLibrary模块
 包含了android中的orm框架，使用了线程池对sqlite进行操作，一行代码就可以进行增删改查。支持一对多，多对一等查询。<br>
-有关DB模块，要在此感谢开源社区，很大程度上参考了(finalDB模块)[https://github.com/kymjs/afinal]<br>
+有关DB模块，要在此感谢开源社区，很大程度上参考了[finalDB](https://github.com/kymjs/afinal)框架<br>
 ```java
 //普通数据存储
 KJDB db = KJDB.create(this);
@@ -237,23 +239,33 @@ public class Child{ //JavaBean
     /*....*/
 }
 List<Parent> all = db.findAll(Parent.class);
-        for( Parent  item : all){
-            if(item.getChildren ().getList().size()>0)
-                Toast.makeText(this,item.getText() + item.getChildren().getList().get(0).getText(),Toast.LENGTH_LONG).show();
-        }
+    for( Parent  item : all){
+        if(item.getChildren ().getList().size()>0)
+            ViewInject.toast(item.getText() + item.getChildren().getList().get(0).getText());
+    }
 
 ```
 ## UtilsLibrary模块
 包含了应用开发中的常用工具类，例如系统级别的Log管理、网络状态监测、Bitmap压缩工具类、获取屏幕宽高以及单位转换的工具类、错误信息处理与文件处理工具类、preference工具类、字符串操作与常用正则判断等。详细内容请自行查看项目文件中org.kymjs.aframe.utils包下的内容[更多介绍...](http://my.oschina.net/kymjs/blog)<br><br>
 
-
 ## 许可
-********本项目采用 Apache Licence 2.0 授权协议:<br>
-Apache Licence是著名的非盈利开源组织Apache采用的协议。该协议和BSD类似，同样鼓励代码共享和尊重原作者的著作权，同样允许代码修改，再发布（作为开源或商业软件）<br>
-[更多...](http://www.oschina.net/question/12_2828)<br>
-********欢迎大家在这个基础上进行改进，并与大家分享。<br>
+**本项目采用 Apache Licence 2.0 授权协议:<br>
+Apache Licence是著名的非盈利开源组织Apache采用的协议。该协议和BSD类似，同样鼓励代码共享和尊重原作者的著作权，同样允许代码修改，再发布（作为开源或商业软件）[更多...](http://www.oschina.net/question/12_2828)<br>
+  Copyright (c) 2014, KJFrameForAndroid Open Source Project, Zhang Tao.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+	   
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 ## 关于作者kymjs
 blog：http://my.oschina.net/kymjs/blog<br>
 email：kymjs123@gmail.com<br>
-KJLibrary交流QQ群：[257053751](http://shang.qq.com/wpa/qunwpa?idkey=00d92c040e81d87ccd21f8d0fffb10640baaa66da45254c3bd329b6ff7d46fef)
+forum/bbs: [http://tieba.baidu.com/f?kw=kym%BD%A9%CA%AC&fr=index](http://tieba.baidu.com/f?kw=kym%BD%A9%CA%AC&fr=index)

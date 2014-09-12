@@ -15,16 +15,10 @@
  */
 package org.kymjs.aframe.ui.widget;
 
-import org.kymjs.kjlibrary.R;
-
 import android.content.Context;
 import android.view.Gravity;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -46,18 +40,14 @@ public class KJListViewHeader extends LinearLayout {
     // flag
     private RefreshState mState = RefreshState.STATE_NORMAL;
 
+    private String normal = "有一种下拉可以刷新";
+    private String ready = "有一种刷新叫做放手";
+    private String refreshing = "正在刷新…";
+
     // widget
-    private LinearLayout layout; // 头部layout
-    private ImageView arrowImageView; // 指示箭头图片
-    private ProgressBar progressBar; // 刷新中的环形等待条
     private TextView hintTextView; // 刷新提示文字（上拉刷新、下拉刷新、正在刷新）
-
-    // anim
-    private Animation rotateUpAnim;
-    private Animation rotateDownAnim;
-
-    // data
-    private final int ROTATE_ANIM_DURATION = 180;
+    RelativeLayout layout; // 头部layout
+    TextView timeTextView; // 刷新时间
 
     public KJListViewHeader(Context context) {
         super(context);
@@ -69,27 +59,26 @@ public class KJListViewHeader extends LinearLayout {
      */
     private void initView(Context context) {
         // 初始情况，设置下拉刷新view高度为0
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, 0);
-        layout = (LinearLayout) View.inflate(context,
-                R.layout.pagination_listview_header, null);
+        layout = new RelativeLayout(context);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        LinearLayout l = new LinearLayout(context);
+        l.setGravity(Gravity.CENTER);
+        l.setOrientation(LinearLayout.VERTICAL);
+        l.setLayoutParams(params);
+        hintTextView = new TextView(context);
+        hintTextView.setGravity(Gravity.CENTER);
+        timeTextView = new TextView(context);
+        timeTextView.setGravity(Gravity.CENTER);
+        l.addView(hintTextView);
+        l.addView(timeTextView);
+        layout.addView(l);
         addView(layout, lp);
         setGravity(Gravity.BOTTOM);
-        arrowImageView = (ImageView) findViewById(R.id.pagination_header_arrow);
-        hintTextView = (TextView) findViewById(R.id.pagination_header_hint_textview);
-        progressBar = (ProgressBar) findViewById(R.id.pagination_header_progressbar);
-
-        // 初始化箭头方向
-        rotateUpAnim = new RotateAnimation(0.0f, -180.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        rotateUpAnim.setDuration(ROTATE_ANIM_DURATION);
-        rotateUpAnim.setFillAfter(true);
-        rotateDownAnim = new RotateAnimation(-180.0f, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        rotateDownAnim.setDuration(ROTATE_ANIM_DURATION);
-        rotateDownAnim.setFillAfter(true);
     }
 
     /**
@@ -101,36 +90,17 @@ public class KJListViewHeader extends LinearLayout {
     public void setState(RefreshState state) {
         if (state == mState)
             return;
-        // 刷新状态
-        if (state == RefreshState.STATE_REFRESHING) {
-            arrowImageView.clearAnimation();
-            arrowImageView.setVisibility(View.INVISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            // 显示箭头图片
-            arrowImageView.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.INVISIBLE);
-        }
-
         switch (state) {
         case STATE_NORMAL:
-            if (mState == RefreshState.STATE_READY) {
-                arrowImageView.startAnimation(rotateDownAnim);
-            }
-            if (mState == RefreshState.STATE_REFRESHING) {
-                arrowImageView.clearAnimation();
-            }
-            hintTextView.setText("有一种下拉可以刷新");
+            hintTextView.setText(normal);
             break;
         case STATE_READY:
             if (mState != RefreshState.STATE_READY) {
-                arrowImageView.clearAnimation();
-                arrowImageView.startAnimation(rotateUpAnim);
-                hintTextView.setText("有一种刷新叫做放手");
+                hintTextView.setText(ready);
             }
             break;
         case STATE_REFRESHING:
-            hintTextView.setText("正在刷新…");
+            hintTextView.setText(refreshing);
             break;
         default:
         }
@@ -155,5 +125,35 @@ public class KJListViewHeader extends LinearLayout {
      */
     public int getVisibleHeight() {
         return layout.getHeight();
+    }
+
+    /**
+     * 设置下拉时的显示文字
+     * 
+     * @param normal
+     *            刚开始下拉，还没有到放手的状态
+     */
+    public void setNormal(String normal) {
+        this.normal = normal;
+    }
+
+    /**
+     * 设置下拉回放时的显示文字
+     * 
+     * @param ready
+     *            下拉完成后向上收缩，准备刷新时的状态
+     */
+    public void setReady(String ready) {
+        this.ready = ready;
+    }
+
+    /**
+     * 设置刷新时的文字
+     * 
+     * @param refreshing
+     *            正在刷新的状态
+     */
+    public void setRefreshing(String refreshing) {
+        this.refreshing = refreshing;
     }
 }
