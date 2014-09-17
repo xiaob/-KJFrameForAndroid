@@ -59,18 +59,16 @@ public class BitmapHelper {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-        if (height > 400 || width > 450) {
-            if (height > reqHeight || width > reqWidth) {
-                // 计算出实际宽高和目标宽高的比率
-                final int heightRatio = Math.round((float) height
-                        / (float) reqHeight);
-                final int widthRatio = Math.round((float) width
-                        / (float) reqWidth);
-                // 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
-                // 一定都会大于等于目标的宽和高。
-                inSampleSize = heightRatio < widthRatio ? heightRatio
-                        : widthRatio;
-            }
+        if (height > reqHeight || width > reqWidth) {
+            // 计算出实际宽高和目标宽高的比率
+            final int heightRatio = Math.round((float) height
+                    / (float) reqHeight);
+            final int widthRatio = Math.round((float) width
+                    / (float) reqWidth);
+            // 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
+            // 一定都会大于等于目标的宽和高。
+            inSampleSize = heightRatio < widthRatio ? heightRatio
+                    : widthRatio;
         }
         // 设置压缩比例
         options.inSampleSize = inSampleSize;
@@ -104,13 +102,14 @@ public class BitmapHelper {
         if (i > 1) {
             // 缩放图片 此处用到平方根 将宽带和高度压缩掉对应的平方根倍
             // （保持宽高不变，缩放后也达到了最大占用空间的大小）
-            bitmap = scale(bitmap, bitmap.getWidth() / Math.sqrt(i),
+            bitmap = scaleWithWH(bitmap,
+                    bitmap.getWidth() / Math.sqrt(i),
                     bitmap.getHeight() / Math.sqrt(i));
         }
     }
 
     /***
-     * 图片的缩放方法<br>
+     * 图片的缩放方法,如果参数宽高为0,则不处理<br>
      * 
      * <b>注意</b> src实际并没有被回收，如果你不需要，请手动置空
      * 
@@ -121,21 +120,24 @@ public class BitmapHelper {
      * @param newHeight
      *            ：缩放后高度
      */
-    public static Bitmap scale(Bitmap src, double newWidth,
-            double newHeight) {
-        // 记录src的宽高
-        float width = src.getWidth();
-        float height = src.getHeight();
-        // 创建一个matrix容器
-        Matrix matrix = new Matrix();
-        // 计算缩放比例
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // 开始缩放
-        matrix.postScale(scaleWidth, scaleHeight);
-        // 创建缩放后的图片
-        return Bitmap.createBitmap(src, 0, 0, (int) width,
-                (int) height, matrix, true);
+    public static Bitmap scaleWithWH(Bitmap src, double w, double h) {
+        if (w == 0 || h == 0) {
+            return src;
+        } else {
+            // 记录src的宽高
+            int width = src.getWidth();
+            int height = src.getHeight();
+            // 创建一个matrix容器
+            Matrix matrix = new Matrix();
+            // 计算缩放比例
+            float scaleWidth = (float) (w / width);
+            float scaleHeight = (float) (h / height);
+            // 开始缩放
+            matrix.postScale(scaleWidth, scaleHeight);
+            // 创建缩放后的图片
+            return Bitmap.createBitmap(src, 0, 0, width, height,
+                    matrix, true);
+        }
     }
 
     /**
@@ -148,7 +150,8 @@ public class BitmapHelper {
      * @param scaleMatrix
      *            ：缩放规则
      */
-    public static Bitmap scale(Bitmap src, Matrix scaleMatrix) {
+    public static Bitmap scaleWithMatrix(Bitmap src,
+            Matrix scaleMatrix) {
         return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
                 src.getHeight(), scaleMatrix, true);
     }
@@ -165,7 +168,8 @@ public class BitmapHelper {
      * @param scaleY
      *            ：纵向缩放比例
      */
-    public static Bitmap scale(Bitmap src, float scaleX, float scaleY) {
+    public static Bitmap scaleWithXY(Bitmap src, float scaleX,
+            float scaleY) {
         Matrix matrix = new Matrix();
         matrix.postScale(scaleX, scaleY);
         return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
@@ -179,11 +183,11 @@ public class BitmapHelper {
      * 
      * @param src
      *            ：源图片资源
-     * @param scale
+     * @param scaleXY
      *            ：缩放比例
      */
-    public static Bitmap scale(Bitmap src, float scale) {
-        return scale(src, scale, scale);
+    public static Bitmap scaleWithXY(Bitmap src, float scaleXY) {
+        return scaleWithXY(src, scaleXY, scaleXY);
     }
 
     /**
