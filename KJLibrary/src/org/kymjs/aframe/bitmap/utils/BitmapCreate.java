@@ -30,7 +30,7 @@ import android.graphics.Rect;
  * <b>创建时间</b> 2014-7-11
  * 
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.0
+ * @version 1.1
  */
 public class BitmapCreate {
     /**
@@ -97,13 +97,19 @@ public class BitmapCreate {
      */
     public static Bitmap bitmapFromByteArray(byte[] data, int offset,
             int length, int reqWidth, int reqHeight) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(data, offset, length, options);
-        options = BitmapHelper.calculateInSampleSize(options,
-                reqWidth, reqHeight);
-        return BitmapFactory.decodeByteArray(data, offset, length,
-                options);
+        if (reqHeight == 0 || reqWidth == 0) {
+            return BitmapFactory
+                    .decodeByteArray(data, offset, length);
+        } else {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(data, offset, length,
+                    options);
+            options = BitmapHelper.calculateInSampleSize(options,
+                    reqWidth, reqHeight);
+            return BitmapFactory.decodeByteArray(data, offset,
+                    length, options);
+        }
     }
 
     /**

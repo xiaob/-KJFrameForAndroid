@@ -52,7 +52,7 @@ public class TabExample extends KJFragmentActivity {
         mRbtn1.setText("侧滑");
         mRbtn2.setText("网络请求");
         mRbtn3.setText("列表图片");
-        mRbtn4.setText("下载");
+        mRbtn4.setText("更多");
     }
 
     @Override
@@ -72,8 +72,7 @@ public class TabExample extends KJFragmentActivity {
             changeFragment(content3);
             break;
         case R.id.bottombar_content4:
-            actionBar.setTitle("图片模糊效果");
-            changeFragment(content4);
+            showActivity(aty, TabExampleTwo.class);
             break;
         }
     }

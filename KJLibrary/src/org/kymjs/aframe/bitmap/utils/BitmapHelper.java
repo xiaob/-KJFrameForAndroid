@@ -24,10 +24,11 @@ import android.graphics.Matrix;
 /**
  * Bitmap操作助手，包含了图片大小压缩、缩放<br>
  * 
- * <b>创建时间</b> 2014-6-30
+ * <b>创建时间</b> 2014-6-30<br>
+ * <b>最后修改</b> 2014-9-19<br>
  * 
  * @author kymjs(kymjs123@gmail.com)
- * @version 1.0
+ * @version 1.1
  */
 public class BitmapHelper {
 
@@ -115,13 +116,13 @@ public class BitmapHelper {
      * 
      * @param src
      *            ：源图片资源
-     * @param newWidth
+     * @param w
      *            ：缩放后宽度
-     * @param newHeight
+     * @param h
      *            ：缩放后高度
      */
     public static Bitmap scaleWithWH(Bitmap src, double w, double h) {
-        if (w == 0 || h == 0) {
+        if (w == 0 || h == 0 || src == null) {
             return src;
         } else {
             // 记录src的宽高
